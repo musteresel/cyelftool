@@ -63,15 +63,13 @@ set(HEADERS
 
 
 #_____________/ FINAL STEPS \____________________#
-include_directories(${CYELFLIB_SRC_DIR} ${PROJECT_SOURCE_DIR} "${LIBELF_DIR}/include")
-link_directories("${LIBELF_DIR}/lib" "${CYELFLIB_DIR}/lib")
+include_directories(${CYELFLIB_SRC_DIR} ${PROJECT_SOURCE_DIR})
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-# do not link "elf" directly, as this might use libelf included with system instead of from cyelftool package
 if(UNIX)
 target_link_libraries(${PROJECT_NAME} 
      cyelflib
-     libelf.a
+     elf
 )
 elseif(WIN32)
   target_link_libraries(${PROJECT_NAME} cyelflib )
@@ -80,4 +78,3 @@ elseif(WIN32)
 endif()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-install(FILES "${LIBELF_DIR}/lib/libelf.so.${LIBELF_VER}" DESTINATION lib)
