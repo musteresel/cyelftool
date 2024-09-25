@@ -20,7 +20,6 @@ if(APPLE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os -Wall -std=gnu++11")
 elseif(UNIX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os -Wall -std=gnu++11")
-  set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -static" )
 elseif(WIN32)
   set(LIBELF_DIR "${PROJECT_BINARY_DIR}/../libelf_win32")
   set(LIBELF_LINK "${LIBELF_DIR}/lib/libelf.lib")
@@ -65,14 +64,14 @@ set(HEADERS
 
 #_____________/ FINAL STEPS \____________________#
 include_directories(${CYELFLIB_SRC_DIR} ${PROJECT_SOURCE_DIR} "${LIBELF_DIR}/include")
-link_directories("${LIBELF_DIR}" "${CYELFLIB_DIR}/lib")
+link_directories("${LIBELF_DIR}/lib" "${CYELFLIB_DIR}/lib")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 # do not link "elf" directly, as this might use libelf included with system instead of from cyelftool package
 if(UNIX)
 target_link_libraries(${PROJECT_NAME} 
      cyelflib
-     ${LIBELF_DIR}/lib/libelf.a
+     libelf.a
 )
 elseif(WIN32)
   target_link_libraries(${PROJECT_NAME} cyelflib )
