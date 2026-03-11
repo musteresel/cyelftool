@@ -259,7 +259,7 @@ uint16_t ComputeCRC16CCITT(const std::vector<uint8_t> &data)
         for (uint8_t i = 0; i < 8; i++)
         {
             if (crc & 0x8000)
-                crc = (crc <<= 1) ^ 0x1021;
+                crc = (crc << 1) ^ 0x1021;
             else
                 crc <<= 1;
         }
