@@ -352,18 +352,24 @@ CyErr CyPsocHexFile::Read(const std::wstring &sourceFile, CyPsocHexFile* &hexDat
 
     std::vector<CyHexFileLine *> list;
     if (reader.fail())
+    {
         err = CyErr(CyErr::FAIL, L"Unable to read hex file %ls", sourceFile.c_str());
-
-    if (err.IsOK())
+    }
+    else
+    {
         err = ReadLines(sourceFile, reader, list);
 	reader.close();
-
+    }
     if (err.IsOK())
+    {
         hexData = new CyPsocHexFile(list);
+    }
     else
     {
         for (size_t i = 0; i < list.size(); i++)
+        {
             delete list[i];
+        }
     }
 
     return err;
