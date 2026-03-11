@@ -17,5 +17,5 @@ stdenv.mkDerivation rec {
 
   buildInputs = [cmake libelf];
 
-  cmakeFlags = ["DLIBELF_DIR=${libelf}"];
+  cmakeFlags = ["-DLIBELF_DIR=${libelf}" "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"];
 }
